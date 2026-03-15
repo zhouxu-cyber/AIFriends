@@ -5,6 +5,10 @@ import HomepageIcon from "@/components/navbar/icons/HomepageIcon.vue";
 import FriendIcon from "@/components/navbar/icons/FriendIcon.vue";
 import CreateIcon from "@/components/navbar/icons/CreateIcon.vue";
 import SearchIcon from "@/components/navbar/icons/SearchIcon.vue";
+import {useUserStore} from "@/stores/user.js";
+import UserMenu from "@/components/navbar/UserMenu.vue";
+
+const user = useUserStore()
 </script>
 
 <template>
@@ -19,8 +23,8 @@ import SearchIcon from "@/components/navbar/icons/SearchIcon.vue";
           <div class="px-2 font-bold text-2xl">AIFriends</div>
         </div>
 
-        <div class="navbar-center w-4/5 max-w-180">
-          <div class="join w-4/5">
+        <div class="navbar-center w-4/5 max-w-180 flex justify-center">
+          <div class="join w-4/5 flex justify-center">
             <input class="input join-item w-4/5 rounded-l-full" placeholder="搜索你感兴趣的内容" />
             <button class="btn join-item rounded-r-full gap-0.5">
               <SearchIcon /> 搜索
@@ -29,7 +33,11 @@ import SearchIcon from "@/components/navbar/icons/SearchIcon.vue";
         </div>
 
         <div class="navbar-end">
-          <button class="btn btn-ghost text-lg">登录</button>
+          <RouterLink v-if="user.isLogin()" :to="{name: 'create-index'}" active-class="btn-active" class="btn btn-ghost text-base mr-6">
+            <CreateIcon />
+          </RouterLink>
+          <RouterLink v-if=" user.HasPulledUserInfo && !user.isLogin()" :to="{name: 'user-account-login-index'}" class="btn btn-ghost text-lg">登录</RouterLink>
+          <UserMenu v-else-if="user.isLogin()" />
         </div>
 
       </nav>
@@ -41,30 +49,30 @@ import SearchIcon from "@/components/navbar/icons/SearchIcon.vue";
       <div class="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-16 is-drawer-open:w-54">
         <ul class="menu w-full grow">
           <li>
-            <button
+            <RouterLink :to="{name: 'homepage-index'}" active-class="bg-blue-100 text-blue-500"
               class="py-3 px-3 rounded text-gray-700 hover:text-blue-500 hover:bg-gray-100 transition cursor-pointer"
               data-tip="首页">
               <homepage-icon />
               <span class="is-drawer-close:hidden text-base ml-2 whitespace-nowrap">首页</span>
-            </button>
+            </RouterLink>
           </li>
 
           <li>
-            <button
+            <RouterLink :to="{name: 'friend-index'}" active-class="bg-blue-100 text-blue-500"
               class="py-3 px-3 rounded text-gray-700 hover:text-blue-500 hover:bg-gray-100 transition cursor-pointer"
               data-tip="好友">
               <friend-icon />
               <span class="is-drawer-close:hidden text-base ml-2 whitespace-nowrap">好友</span>
-            </button>
+            </RouterLink>
           </li>
 
           <li>
-            <button
+            <RouterLink :to="{name: 'create-index'}" active-class="bg-blue-100 text-blue-500"
               class="py-3 px-3 rounded text-gray-700 hover:text-blue-500 hover:bg-gray-100 transition cursor-pointer"
               data-tip="创作">
               <create-icon />
               <span class="is-drawer-close:hidden text-base ml-2 whitespace-nowrap">创作</span>
-            </button>
+            </RouterLink>
           </li>
 
         </ul>
