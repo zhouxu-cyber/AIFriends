@@ -27,7 +27,6 @@ async function handleLogin() {
       if(data.result === 'success') {
         user.setAccessToken(data.access)
         user.setUserInfo(data)
-        console.log(data)
         await router.push({
           name: 'homepage-index'
         })

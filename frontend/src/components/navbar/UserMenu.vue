@@ -35,7 +35,7 @@ async function handleLogout(){
         <img :src="user.photo" alt="">
       </div>
     </div>
-    <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-lg">
+    <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-48 p-2 shadow-lg">
       <li v-if="user.id">
         <RouterLink @click="closeMenu" :to="{name: 'user-space-index', params: {user_id: user.id}}"
         class="hover:bg-gray-100 rounded-lg transition">
@@ -44,7 +44,7 @@ async function handleLogout(){
               <img :src="user.photo" alt="">
             </div>
           </div>
-          <span class="text-base font-bold line-clamp-1" style="color:red">{{user.username}}</span>
+          <span class="text-base font-bold line-clamp-1 break-all" style="color:red">{{user.username}}</span>
         </RouterLink>
       </li>
 
@@ -64,7 +64,7 @@ async function handleLogout(){
         </RouterLink>
       </li>
       <li>
-         <hr class="my-1 border-gray-200">
+         <hr class=" border-gray-200">
       </li>  <!-- 分隔线 -->
       <li>
         <a @click="handleLogout" class="text-sm font-bold py-3 hover:bg-gray-100 rounded-lg transition cursor-pointer" >
